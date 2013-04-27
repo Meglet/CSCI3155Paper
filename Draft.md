@@ -24,17 +24,72 @@ JS function objects are highly versatile. They are first class citizens, thus ar
 >> lead into next topic saying like:
 >> "Does JS need a native syntax to shorten the above example?"
 
-The new Class Syntax
+The New Class Syntax: Maximally Minimal Classes
 --------------------
+The concept of adding a more traditional Class structure to ES has been around in one form or another since at least ES4.  During the work on ES6, there were at least four formal proposals competing in this space, (class operator, classes, minimal classes, and classes as sugar)[2].  What these discussions highlighted was that there was no consensus on how to implement a broad range of Class semantics[3][4].  As a result, they agreed to “an absolutely minimal class declaration syntax that all interested parties may be able to easily agree upon.”
 
->> Classes added to ECMAScript.next on 2012-07-29
->> Mention the new class syntax: "class","constructor","extends","super"
->> If we can describe how these work.
->> They are just sugar for what we describe above.
->> Many JS libraries use this. Prototype.js, CoffeScript, etc.
->> The new class language is mentioned defined here:
->> http://people.mozilla.org/~jorendorff/es6-draft.html#sec-13.5
+Those interested parties were able to agree that something was better than nothing, and to define a set of minimal requirements which could be extended in the future.  The Class proposal:
+   *  has a declaration form that uses the class keyword and an identifier to create the class
+   *	has a body that can include both the constructor function, as well as any instance (prototype) methods – including getter and setter properties
+   *	can declare the class as a subclass of a another class (probably with the extends keyword)
+   *	super is available from any of the methods or constructor function
 
+Formal Class declarations and expressions:[5]
+<pre>
+    ClassDeclaration:
+        "class" BindingIdentifier ClassTail
+    ClassExpression:
+        "class" BindingIdentifier? ClassTail
+    ClassTail:
+        ClassHeritage? "{" ClassBody? "}"
+    ClassHeritage:
+        "extends" AssignmentExpression
+    ClassBody:
+        ClassElement+
+    ClassElement:
+        MethodDefinition
+        ";"
+    MethodDefinition:
+        PropName "(" FormalParamList ")" "{" FuncBody "}"
+        "*" PropName "(" FormalParamList ")" "{" FuncBody "}"
+        "get" PropName "(" ")" "{" FuncBody "}"
+        "set" PropName "(" PropSetParamList ")" "{" FuncBody "}"
+</pre>
+
+As an example, we can see the above function in the new EC6 Class format:[5]
+
+<pre>
+    // Supertype
+    class Person {
+        constructor(name) {
+            this.name = name;
+        }
+        describe() {
+            return "Person called "+this.name;
+        }
+    }
+    // Subtype
+    class Employee extends Person {
+        constructor(name, title) {
+            super.constructor(name);
+            this.title = title;
+        }
+        describe() {
+            return super.describe() + " (" + this.title + ")";
+        }
+    }
+</pre>
+
+This is how you use these classes:[5]
+<pre>
+    > let jane = new Employee("Jane", "CTO");
+    > jane instanceof Person
+    true
+    > jane instanceof Employee
+    true
+    > jane.describe()
+    Person called Jane (CTO)
+</pre>
 
 Arguments for
 --------------
@@ -117,4 +172,12 @@ Slides for talk
 
 Citations
 ---------
-[1] Draft Specification for ES.next (Ecma-262 Edition 6) [Online] Available: http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts
+[1] Draft Specification for ES.next (Ecma-262 Edition 6) [Online] Available: <br> http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts
+
+[2] List of ECMA6 withdrawn proposals [Online] Available: <br> http://wiki.ecmascript.org/doku.php?id=strawman:withdrawn
+
+[3] "Finding a "safety syntax" for classes" discusion thread (120 replies) [Online] Avaialbe: <br> https://mail.mozilla.org/pipermail/es-discuss/2012-March/021430.html
+
+[4] "Using Object Literals as Classes" discussion thread (67 replies) [Online] Available: <br> https://mail.mozilla.org/pipermail/es-discuss/2012-March/021253.html
+
+[5] "ECMAScript.next: classes" 2ality JavaScript nad More Blog Dr. Axel Rauschmayer [Online] Available: <br> http://www.2ality.com/2012/07/esnext-classes.html
