@@ -3,12 +3,13 @@ The New Sugar In Your JavaScript
 Group Members: Nicandro Flores, Megan Greening, and Brian McWilliams.
 
 ECMAScript is an internationally standardized specification for scripting languages.  Many client side languages such as JavaScript(JS) and ActionScript are derived from it.  TC39 is a working group tasked with the responsibility of writing the new ECEMAScript 6 (ES6) specification[1], with a late 2013 target release. In approximately six months Node.js will begin embracing the newly proposed specification, browsers will begin popping up messages asking users upgrade their browsers, and JavaScript (JS) programmers will stand divided with TC39's decision to include a new class syntax into the language. 
+
 The Prototypla Way
 ------------------
 
 Despite JS being an object oriented language it does not have syntax to create classes in the conventional way programmers are used to, such as in Java. ECMAScript does specify that program state and methods are carried by objects, and that structure and behavior are both inherited. Therefore, even though class syntax such as "class" and "extends" do not exist in JS, there must be a way to simulate the idea of classes in JS. 
 
-JS function objects are highly versatile. They are first class citizens, thus are treated like data just as classes are in other class based languages. For example, functions in JS can be used as templates to construct other objects. The templated objects are easily created using the 'new' operator. In addition, they come pre-equipped with hidden properties and methods. One of these properties is the 'prototype' property, with these three tools programmers can simulate prototyped-based classes. 
+JS function objects are highly versatile. They are first class citizens, so they no different than data just as classes are data in other class based languages. For example functions can be used as templates to construct other objects. Templated objects are easily created using the 'new' operator. In addition functions also come pre-equipped with hidden properties and methods. One of these properties is the 'prototype' property, with these three tools programmers can simulate prototyped-based classes. 
 
 ==== Insert example of a prototype based class here ====
 >> Use example mentioned in the link below
