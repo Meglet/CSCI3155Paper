@@ -18,13 +18,81 @@ How did we get here?
 *Classes will be added in Harmony
 * Programmers are divided on whether or not this is a good thing
 
+The JavaScript Specification
+
+ + ECMAScript is the JS specifiaction
+   http://www.ecma-international.org/ecma-262/5.1/
+              
+ + TC39: group in charge of writing ECMAScript6
+   http://www.ecma-international.org/memento/TC39.htm
+
+ + The new spec will be out in late 2013
+
+
 3
-The Prototypal Way
+The Prototype Way
 ==================
 
-*JS is object oriented, but it doesn't have Class syntax, as Java does
+
 *Classes can be simulated in JS since objects are highly versatile
 *"Prototype" is the property that allows programmers to simluate protoype-based classes
+
+Constructor Functions
+---------------------
+
+~~~~javascript
+    > function Person(name) {
+      this.name = name;
+      }
+    > Person.hasOwnProperty('name') // => true
+    > Person.prototype              // => {}
+    > Person.prototype.sayName = function() { 
+        return "Hi I am a Person and my name is: " + this.name; 
+      };
+    > Person.prototype              // => { sayName: [Function] }
+    > function Employee(name,title,company) {
+        Person.call(this,name);
+        //Person.apply(this,['name']);
+        this.title = title;
+        this.company = company;
+      }
+~~~~
+
+
+Prototype Inheritance
+----------------------
+
+~~~~javascript
+    > function Employee(name,title,company) {
+        Person.call(this,name);
+        //Person.apply(this,['name']);
+        this.title = title;
+        this.company = company;
+      }
+    > Employee.prototype = new Person('John Doe','TBD','Unemployed');
+    > Employee.prototype.constructor = Employee;
+    > Employee.prototype.describe = function() {
+        return Person.prototype.sayName.call(this,this.name) 
+               + ", I am a " + this.title + " at " 
+               + this.company + "!";
+      }
+~~~~
+
+Now let make some instances of these objects/classes
+----------------------------------------------------
+
+~~~~javascript
+    > var me = new Person('Nic');
+    > var prof = new Employee('Jim Baker','code slinging Ninja','Rackspace');
+    > console.log(me.sayName());
+      Hi I am a Person and my name is: Nic
+    > console.log(prof.sayName());
+      Hi I am a Person and my name is: Jim Baker
+    > console.log(prof.describe());
+      Hi I am a Person and my name is: Jim Baker, 
+      I am a code slinging Ninja at Rackspace!
+~~~~
+
 
 4
 Code Example of Prototypes
