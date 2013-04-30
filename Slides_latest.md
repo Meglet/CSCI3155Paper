@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-=======
-% Static Typing
-
-I wasn't comfortable with the html file that Nic sent out, so I started work in in MD. I left numbers in just to indicate what I was thinking of including on each slide. Clearly we'll need to move things around and modify them - and delete the numbers.
->>>>>>> 343b2ba94dba484665b3311cf242fde42b6644c0
 
 New Class Syntax in JavaScript
 ====================================
@@ -132,7 +126,6 @@ MethodDefinition :
 July 26, 2012 TC39 Meeting Notes Allen Wirfs-Brock http://t.co/PwuF12Y0
 </align>
 
-<<<<<<< HEAD
 Parsing of Judgement Forms
 --------------------------
 <pre>
@@ -171,87 +164,6 @@ From Prototype to Classes
     }
 </pre>
 
-=======
-Slide #9:
-<Note/Speaking>
-The working group in their documentation didn't use cryptic (but mathmatically precise) notations, but we definatly see the parsing of judgement forms.  Read through the ConstructorMethod instance.  We did this in every lab.
-<End speaking>
-<pre>
-Static Semantics: ConstructorMethod
-ClassBody : ClassElementList
-1. Let list be PrototypeMethodDefinitions of ClassElementList.
-2. For each MethodDefinition m in list, do
-  a. If PropName of m is ″constructor″, return m.
-3. Return empty.
-NOTE Early Error rules ensure that there is only one method definition named ″constructor″ and that it isn’t an 
-accessor property or generator definition.
-</pre>
-
-From Prototype to Class
-=======================
-
-~~~~javascript
-// Supertype
-    class Person {
-        constructor(name) {
-            this.name = name;
-        }
-        describe() {
-            return "Person called "+this.name;
-        }
-    }
-    // Subtype
-    class Employee extends Person {
-        constructor(name, title) {
-            super.constructor(name);
-            this.title = title;
-        }
-        describe() {
-            return super.describe() + " (" + this.title + ")";
-        }
-    }
-~~~~
-
-How Classes Will Be Used
-========================
-~~~~Javascript
-    > let prof = new Employee("Jim Baker", "code slinging Ninja");
-
-    > prof instanceof Person
-    true
-    > prof instanceof Employee
-    true
-    > prof.describe()
-      Hi I am a Person and my name is: Jim Baker, 
-      I am a code slinging Ninja!
-~~~~
-
-Pros
-====
-(Slide 1)
-<talk>
-We all have been taught that OOP is great, and that all code should follow the various patterrns described by the Gang of 4.  We've already seen the concepts of sup/superclasses are key.  As Peter Michaux described it:
-</talk>
-<pre>
-"When they arrive to JavaScript their concepts of how an object-oriented language works no longer apply they 
-learn that their big OOP investment was not complete."
-
-http://michaux.ca/articles/transitioning-from-java-classes-to-javascript-prototypes
-</pre>
-
-(Slide 2)
-<talk>Prototype-based inheritance does appear in the famous Gang of Four Design Patterns book but it is not one of the more widely employed patterns in programs using languages with class-based inheritance. There are very few books showing how to use prototype-based inheritance well.
-</talk>
-
-
-<pre>
-<align = center> Professional Learning Resources</align>
-Amazon.com books that refer to "prototype inheritance javascript":
-    14
-Amazon.com books that refer to "class inheritance":
-    3,001
-</pre>
->>>>>>> 343b2ba94dba484665b3311cf242fde42b6644c0
 
 How Classes Will Be Used
 ------------------------
@@ -271,7 +183,6 @@ How Classes Will Be Used
 
 
 Main Arguments Against
-<<<<<<< HEAD
 ----------------------
 
 The new syntax will add complexity
@@ -320,56 +231,6 @@ Amazon.com results that refer to:
 
 
 
-=======
-======================
-*JS already has "class" functionality.
-*Prototypal classes are available and they work.
-*No point in maximally minimal classes.
-
-16
-Classes May Add Confusion
-=================================
-*Adding common features of classes (inheritance, subclasses, etc) will add confusion to JS.
-*There will be TWO ways of creating classes and that may lead to errors later on.
-
-17
-Prototypal Classes Work
-=======================
-Adapted from Dr. Axel Rauschmayer:
-<pre>
-    var PersonProto = {
-        describe: function () {
-            return "Person called "+this.name;
-        },
-    };
-    var jim = {
-        __proto__: PersonProto,
-        name: "Jim",
-    };
-    var dana = {
-        __proto__: PersonProto,
-        name: "Dana",
-    };
-    
-    console.log(jim.describe()); // Person called Jim
-</pre>
-October 21, 2012 - http://www.2ality.com/2011/11/javascript-classes.html
-
-18
-What's the Point of Minimal Classes?
-====================================
-From Rick Waldren
-<pre>
-Attempting to extend this proposal is likely to result in dead-lock that 
-would result in the inclusion of no class definition support in “ES6”. 
-</pre>
-*Minimal classes are limited.
-*They will not be in regular use for quite awhile.
-
-January 18, 2013 - http://wiki.ecmascript.org/doku.php?id=strawman:maximally_minimal_classes
-
-19
->>>>>>> 343b2ba94dba484665b3311cf242fde42b6644c0
 Conclusion
 ----------
 
