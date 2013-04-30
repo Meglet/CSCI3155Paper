@@ -34,118 +34,305 @@
 	  <div class="reveal">
 	  <!-- Any section element inside of this container is displayed as a slide -->
 	  <div class="slides">
+
 	    <!-- Title -->
 	    <section>
 	      <h1>New Class Syntax</h1> <h1>in JavaScript</h1>
 	      <p>
 	        <small>By Brian, Megan, and Nic</small>
 	      </p>
+	      <p> Our paper and presentation slides are on github </p>
+	      <li><a href="https://github.com/Meglet/CSCI3155Paper">
+	      	      https://github.com/Meglet/CSCI3155Paper
+	      	  </a>
+	      </li>
 	    </section>
-            <!-- End Title -->
+         <!-- End Title -->
 
 		<!-- Outline -->
 		<section>
 		  <h2>Outline</h2>
 		    <ol>
-		      <li>Thing One</li>
-		      <li>Thing Two</li>
+		      <li>Background on our topic</li>
+		      <li>Old vs. New Syntax </li>
+		      <li>Pros and Cons</li>
 		    </ol>
-		  <aside class="notes">
-		    Oh hey, these are some notes (hit 's' on your keyboard).
-		  </aside>
 		</section>
 		<!-- End of Outline -->
 
 
-		<!-- Example of nested vertical slides -->
+		<!-- How we got here -->
 		<section>
-		  <section>
-		    <h2>Typical NASA GGN Station</h2>
-			  <a href="#" class="image navigate-down">
-			    <img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-			  </a>
-		  </section>
-		  <section>
-		    <h2>Basement Level 1</h2>
-			  <p>Press down or up to navigate.</p>
-		  </section>
-		  <section>
-		    <h2>Basement Level 2</h2>
-			  <p>Cornify</p>
-				<a class="test" href="http://cornify.com">
-				  <img width="280" height="326" src="https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif" alt="Unicorn">
-				</a>
-		  </section>
-		  <section>
-		    <h2>Basement Level 3</h2>
-			<p>That's it, time to go back up.</p>
-			<a href="#/2" class="image">
-			  <img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
-			</a>
-		  </section>
+			<h2>The JavaScript Standard</h2>
+			<ol>
+		      <li>JS derived from the ECMAScript specifiaction
+		        <a href="http://www.ecma-international.org/ecma-262/5.1/">	      	     
+		      	   http://www.ecma-international.org/ecma-262/5.1/
+	      	    </a></li>	      	    
+		      <li>TC39: group in charge of writing ECMAScript6</li>
+		        <a href="http://www.ecma-international.org/memento/TC39.htm">	      	     
+		      	   http://www.ecma-international.org/memento/TC39.htm
+	      	    </a></li>		      
+		      <li>The new spec will be out in late 2013</li>
+		    </ol>
 		</section>
-		<!-- Example of nested vertical slides -->
+		<!-- End How we got here -->
 
 
+
+		<!-- Prototype based 'classes' -->
 		<section>
-		  <h2>Pretty Code</h2>
-		  <pre>
-		    <code contenteditable>
-
-function linkify( selector ) {
-  if( supports3DTransforms ) {
-
-    var nodes = document.querySelectorAll( selector );
-
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
-
-      if( !node.className ) ) {
-        node.className += ' roll';
-      }
-    };
-  }
+		  <section>
+		    <h2>Constructor Functions</h2>
+		    <pre><code contenteditable>
+> function Person(name) {
+	this.name = name;
 }
-		    </code>
-		  </pre>
+> Person.hasOwnProperty('name') // => true
+> Person.prototype              // => {}
+> Person.prototype.sayName = function() { 
+    return "Hi I am a Person and my name is: " + this.name; 
+  };
+> Person.prototype              // => { sayName: [Function] }
+> function Employee(name,title,company) {
+	Person.call(this,name);
+	//Person.apply(this,['name']);
+	this.title = title;
+	this.company = company;
+}
+		    </code><pre>
+		  </section>
+
+		    <section>
+		    <h2>Prototype Inheritance</h2>
+		    <pre><code contenteditable>
+
+> function Employee(name,title,company) {
+	Person.call(this,name);
+	//Person.apply(this,['name']);
+	this.title = title;
+	this.company = company;
+}
+> Employee.prototype = new Person('John Doe','TBD','Unemployed');
+> Employee.prototype.constructor = Employee;
+> Employee.prototype.describe = function() {
+	return Person.prototype.sayName.call(this,this.name) 
+	       + ", I am a " + this.title + " at " 
+	       + this.company + "!";
+}
+		    </code><pre>
+		  </section>
+
+		    <section>
+		    <h2>Now lets make some objects</h2>
+		    <pre><code contenteditable>
+> var me = new Person('Nic');
+> var prof = new Employee('Jim Baker','code slinging Ninja','Rackspace');
+> console.log(me.sayName());
+  Hi I am a Person and my name is: Nic
+> console.log(prof.sayName());
+  Hi I am a Person and my name is: Jim Baker
+> console.log(prof.describe());
+  Hi I am a Person and my name is: Jim Baker, 
+  I am a code slinging Ninja at Rackspace!
+		    </code><pre>
+		  </section>
+	</section>
+		<!-- End Prototype based 'classes' -->
+
+
+		<!-- Maximally Minimal Classes -->
+		<section>
+		  <section>
+			  <h1>Maximally Minimal Classes</h1>
+		  </section>
+		  <section>
+			  <ul>
+			  	<li>A Class keyword</li>
+			  	<li>A body that includes the constructor function and instance methods</li>
+			  	<li>Cand declare a class as a subclass of another class using extends</li>
+			  	<li>Super is available from any of the methods or the constructor</li>
+			  </ul>
+		  </section>
+		</section>
+		<!-- End Maximally Minimal Classes -->
+
+
+
+		<!-- Formal Class Grammer -->
+      <section>
+		<section>
+			  <h2>Class BNF</h2>
+			  <pre><code contenteditable>
+ClassDeclaration: class BindingIdentifier ClassTail
+ClassExpression: class BindingIdentifieropt ClassTail
+ClassTail: ClassHeritageopt{ ClassBodyopt}
+ClassHeritage : extends AssignmentExpression 
+ClassBody: ClassElementList 
+ClassElementList: 
+    ClassElement 
+    ClassElementList ClassElement 
+ClassElement:
+    MethodDefinition;
+MethodDefinition :
+    PropertyName(FormalParameterList) {FunctionBody}
+    *PropertyName(FormalParameterList){FunctionBody}
+    get PropertyName ( ){FunctionBody}
+    set PropertyName(PropertySetParameterList) {FunctionBody}
+			  </code></pre>
 		</section>
 
 		<section>
-		  <h2>Spectacular image!</h2>
-		  <a class="image" href="http://lab.hakim.se/meny/" target="_blank">
-		    <img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
-		  </a>
+			<h2>Parsing of</h2><h2> Judgement Forms</h2>
+			<pre><code contenteditable>
+Static Semantics: ConstructorMethod
+ClassBody : ClassElementList
+  1. Let list be PrototypeMethodDefinitions of ClassElementList.
+  2. For each MethodDefinition m in list, do
+    a. If PropName of m is ″constructor″, return m.
+  3. Return empty.
+
+Static Semantics: Contains
+ClassTail : ClassHeritageopt { ClassBody }
+1. If symbol is ClassBody, return true.
+2. If ClassHeritage is not present, return false.
+3. If symbol is ClassHeritage, return true.
+4. Return the result of Contains for ClassHeritage 
+   with argument symbol.
+
+			</code></pre>
 		</section>
+	</section>
+		<!-- End Formal Class Grammer -->
 
-		<section >
-		  <h2>Export to PDF</h2>
-		  <p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, below is an example that's been uploaded to SlideShare.</p>
-		  <iframe id="slideshare" src="http://www.slideshare.net/slideshow/embed_code/13872948" width="455" height="356" style="margin:0;overflow:hidden;border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe>
-		  <script>
-		    document.getElementById('slideshare').attributeName = 'allowfullscreen';
-		  </script>
-		</section>
-
-		<!--section>
-		  <h2>Stellar Links</h2>
-		    <ul>
-		     <li><a href="https://github.com/hakimel/reveal.js">Source code on GitHub</a></li>
-		     <li><a href="http://hakim.se/projects/reveal-js">Leave feedback on my site</a></li>
-		    <li><a href="http://twitter.com/hakimel">Follow me on Twitter</a></li>
-		   </ul>
-		</section-->
-
-
+		<!-- From Prototype to Classes -->
+	<section>
 		<section>
-		  <h1>Thank You For Your Time</h1>
+			  <h2>From Prototype to Classes</h2>
+			  <pre><code contenteditable>
+// Supertype
+    class Person {
+        constructor(name) { this.name = name; }
+        describe() { return "Person called "+this.name; }
+    }
+// Subtype
+    class Employee extends Person {
+        constructor(name, title) {
+            super.constructor(name);
+            this.title = title;
+        }
+        describe() { return super.describe() + this.title; }
+    }
+			  </code></pre>
 		</section>
+		<!-- End From Prototype to Classes -->
+
+		<!-- How Classes Will Be Used -->
+		<section>
+			  <h2>How Classes Will Be Used </h2>
+			  <pre><code>
+> let prof = new Employee("Jim Baker", "code slinging Ninja");
+> prof instanceof Person
+  true
+> prof instanceof Employee
+  true
+> prof.describe()
+  Hi I am a Person and my name is: Jim Baker, 
+  I am a code slinging Ninja!
+			  </code></pre>
+		</section>
+	</section>
+		<!-- End How Classes Will Be Used  -->
+
+
+		<!-- Main arguments against -->
+		<section>
+			<section>
+			  <h2>Main Arguments Against</h2>
+		      <ol>
+		      	<li>The new syntax will add complexity</li>
+		      	<li>It is just sugar</li>
+		      	<li>Minimal classes are redundant</li>
+		      </ol>
+			</section>
+		    <section>
+		      <h2>Classes May Add Complexity</h2>
+		      <ul>
+		        <li>Adding common features of classes (inheritance, subclasses, etc) 
+		      	  will obscure the inner workings of JS
+		        </li>
+		      </ul> 
+		    </section>
+		    <section>
+		      <h2>Prototype Class Work</h2>
+		      <p>You can always write your own JS function to extend CF</p>
+		        <pre><code contenteditable>
+function extend(Child, Parent) {
+     var F = function(){};
+     F.prototype = Parent.prototype;
+     Child.prototype = new F();
+     Child.prototype.constructor = Child;
+     Child.uber = Parent.prototype;
+}
+		       </code></pre>
+              <p>or use Proto.js</p>
+              <a href="https://github.com/rauschma/proto-js">	      	     
+                 https://github.com/rauschma/proto-js
+              </a>
+		    </section>
+		<section>
+		  <h2>What's the point of Minimal Classes</h2>
+		  <ul>
+           <li>There will be TWO ways of creating classes and that may lead to errors later on</li>
+          </ul>
+		</section>
+	</section>
+		<!-- End Cons  -->
+
+
+		<!-- Pros -->
+		<section>
+			<section>
+			  <h2>The need for classes in JS</h2>
+			  <blockquote cite="http://michaux.ca/articles/transitioning-from-java-classes-to-javascript-prototypes">
+			    When they (newcomers) arrive to JavaScript their concepts of how an object-oriented language works no longer apply. They learn that their big OOP investment was not complete.
+			    -Peter Michaux
+		      </blockquote>
+			</section>
+			<section>
+			  <h2>Professional Learning Resources</h2>
+			  <p>Amazon.com results that refer to:</p>
+		      <ol>
+		        <li>"prototype inheritance javascript":  <code>N(14)</code></li>
+		        <li>"class inheritance":  <code>N(3001)</code></li>
+		      </ol>
+			</section>
+		</section>
+		<!-- End Pros  -->
+
+
+		<!--- Conclusion -->
+		<section>
+		  <h2>Conclusion</h2>
+		  <ul>
+		  	<li>Its happening!</li>
+		  	<li>Its just syntactic sugar for prototypical classes</li>
+		  </ul>
+		</section>
+		<!--- End Conclusion-->
+
+
+		<!--- Last Slide -->
+		<section>
+		  <h2>Thank You For Your Time</h2>
+		</section>
+		<!--- Last Slide -->
 
 		</div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.min.js"></script>
-
 		<script>
 
 			// Full list of configuration options available here:
@@ -155,6 +342,7 @@ function linkify( selector ) {
 				progress: true,
 				history: true,
 				center: true,
+				//autoSlide: 15000,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
