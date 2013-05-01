@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>PL Talk - by Brian, Megan, and Nic</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+	  <div class="reveal">
+	  <!-- Any section element inside of this container is displayed as a slide -->
+	  <div class="slides">
+
+	    <!-- Title -->
+	    <section>
+	      <h1>New Class Syntax</h1> <h1>in JavaScript</h1>
+	      <p>
+	        <small>By Brian, Megan, and Nic</small>
+	      </p>
+	      <p> Our paper and presentation slides are on github </p>
+	      <li><a href="https://github.com/Meglet/CSCI3155Paper">
+	      	      https://github.com/Meglet/CSCI3155Paper
+	      	  </a>
+	      </li>
+	    </section>
+         <!-- End Title -->
+
+		<!-- Outline -->
+		<section>
+		  <h2>Outline</h2>
+		    <ol>
+		      <li>Background on our topic</li>
+		      <li>Old vs. New Syntax </li>
+		      <li>Pros and Cons</li>
+		    </ol>
+		</section>
+		<!-- End of Outline -->
+
+
+		<!-- How we got here -->
+		<section>
+			<h2>The JavaScript Standard</h2>
+			<ol>
+		      <li>JS is derived from the ECMAScript specifiaction
+		        <a href="http://www.ecma-international.org/ecma-262/5.1/">	      	     
+		      	   http://www.ecma-international.org/ecma-262/5.1/
+	      	    </a></li>	      	    
+		      <li>TC39: group in charge of writing ECMAScript6</li>
+		        <a href="http://www.ecma-international.org/memento/TC39.htm">	      	     
+		      	   http://www.ecma-international.org/memento/TC39.htm
+	      	    </a></li>		      
+		      <li>The new spec will be out in late 2013</li>
+		    </ol>
+		</section>
+		<!-- End How we got here -->
+
+
+
+		<!-- Prototype based 'classes' -->
+		<section>
+		  <section>
+		    <h2>Constructor Functions</h2>
+		    <pre><code contenteditable>
+> function Person(name) {
+	this.name = name;
+}
+> Person.hasOwnProperty('name') // => true
+> Person.prototype              // => {}
+> Person.prototype.sayName = function() { 
+    return "Hi I am a Person and my name is: " + this.name; 
+  };
+> Person.prototype              // => { sayName: [Function] }
+> function Employee(name,title,company) {
+	Person.call(this,name);
+	//Person.apply(this,['name']);
+	this.title = title;
+	this.company = company;
+}
+		    </code><pre>
+		  </section>
+
+		    <section>
+		    <h2>Prototype Inheritance</h2>
+		    <pre><code contenteditable>
+
+> function Employee(name,title,company) {
+	Person.call(this,name);
+	//Person.apply(this,['name']);
+	this.title = title;
+	this.company = company;
+}
+> Employee.prototype = new Person('John Doe','TBD','Unemployed');
+> Employee.prototype.constructor = Employee;
+> Employee.prototype.describe = function() {
+	return Person.prototype.sayName.call(this,this.name) 
+	       + ", I am a " + this.title + " at " 
+	       + this.company + "!";
+}
+		    </code><pre>
+		  </section>
+
+		    <section>
+		    <h2>Now lets make some objects</h2>
+		    <pre><code contenteditable>
+> var me = new Person('Nic');
+> var prof = new Employee('Jim Baker','code slinging Ninja','Rackspace');
+> console.log(me.sayName());
+  Hi I am a Person and my name is: Nic
+> console.log(prof.sayName());
+  Hi I am a Person and my name is: Jim Baker
+> console.log(prof.describe());
+  Hi I am a Person and my name is: Jim Baker, 
+  I am a code slinging Ninja at Rackspace!
+		    </code><pre>
+		  </section>
+	</section>
+		<!-- End Prototype based 'classes' -->
+
+
+		<!-- Maximally Minimal Classes -->
+		<section>
+		  <section>
+			  <h1>Maximally Minimal Classes</h1>
+		  </section>
+		  <section>
+			  <ul>
+			  	<li>A Class keyword</li>
+			  	<li>A body that includes the constructor function and instance methods</li>
+			  	<li>Can declare a class as a subclass of another class using extends</li>
+			  	<li>Super is available from any of the methods or the constructor</li>
+			  </ul>
+		  </section>
+		</section>
+		<!-- End Maximally Minimal Classes -->
+
+
+
+		<!-- Formal Class Grammer -->
+      <section>
+		<section>
+			  <h2>Class BNF</h2>
+			  <pre><code contenteditable>
+ClassDeclaration: class BindingIdentifier ClassTail
+ClassExpression: class BindingIdentifieropt ClassTail
+ClassTail: ClassHeritageopt{ ClassBodyopt}
+ClassHeritage : extends AssignmentExpression 
+ClassBody: ClassElementList 
+ClassElementList: 
+    ClassElement 
+    ClassElementList ClassElement 
+ClassElement:
+    MethodDefinition;
+MethodDefinition :
+    PropertyName(FormalParameterList) {FunctionBody}
+    *PropertyName(FormalParameterList){FunctionBody}
+    get PropertyName ( ){FunctionBody}
+    set PropertyName(PropertySetParameterList) {FunctionBody}
+			  </code></pre>
+		</section>
+
+		<section>
+			<h2>Parsing of</h2><h2> Judgement Forms</h2>
+			<pre><code contenteditable>
+Static Semantics: ConstructorMethod
+ClassBody : ClassElementList
+  1. Let list be PrototypeMethodDefinitions of ClassElementList.
+  2. For each MethodDefinition m in list, do
+    a. If PropName of m is ″constructor″, return m.
+  3. Return empty.
+
+Static Semantics: Contains
+ClassTail : ClassHeritageopt { ClassBody }
+1. If symbol is ClassBody, return true.
+2. If ClassHeritage is not present, return false.
+3. If symbol is ClassHeritage, return true.
+4. Return the result of Contains for ClassHeritage 
+   with argument symbol.
+
+			</code></pre>
+		</section>
+	</section>
+		<!-- End Formal Class Grammer -->
+
+		<!-- From Prototype to Classes -->
+	<section>
+		<section>
+			  <h2>From Prototype to Classes</h2>
+			  <pre><code contenteditable>
+// Supertype
+    class Person {
+        constructor(name) { this.name = name; }
+        describe() { return "Person called "+this.name; }
+    }
+// Subtype
+    class Employee extends Person {
+        constructor(name, title) {
+            super.constructor(name);
+            this.title = title;
+        }
+        describe() { return super.describe() + this.title; }
+    }
+			  </code></pre>
+		</section>
+		<!-- End From Prototype to Classes -->
+
+		<!-- How Classes Will Be Used -->
+		<section>
+			  <h2>How Classes Will Be Used </h2>
+			  <pre><code>
+> let prof = new Employee("Jim Baker", "code slinging Ninja");
+> prof instanceof Person
+  true
+> prof instanceof Employee
+  true
+> prof.describe()
+  Hi I am a Person and my name is: Jim Baker, 
+  I am a code slinging Ninja!
+			  </code></pre>
+		</section>
+	</section>
+		<!-- End How Classes Will Be Used  -->
+
+
+		<!-- Main arguments against -->
+		<section>
+			<section>
+			  <h2>Main Arguments Against</h2>
+		      <ol>
+		      	<li>The new syntax will add complexity</li>
+		      	<li>It is just sugar</li>
+		      	<li>Minimal classes are redundant</li>
+		      </ol>
+			</section>
+		    <section>
+		      <h2>Classes May Add Complexity</h2>
+		      <ul>
+		        <li>Adding common features of classes (inheritance, subclasses, etc) 
+		      	  will obscure the inner workings of JS
+		        </li>
+		      </ul> 
+		    </section>
+		    <section>
+		      <h2>Prototype Class Work</h2>
+		      <p>You can always write your own JS function to extend CF</p>
+		        <pre><code contenteditable>
+function extend(Child, Parent) {
+     var F = function(){};
+     F.prototype = Parent.prototype;
+     Child.prototype = new F();
+     Child.prototype.constructor = Child;
+     Child.uber = Parent.prototype;
+}
+		       </code></pre>
+              <p>or use Proto.js</p>
+              <a href="https://github.com/rauschma/proto-js">	      	     
+                 https://github.com/rauschma/proto-js
+              </a>
+		    </section>
+		<section>
+		  <h2>What's the point of Minimal Classes</h2>
+		  <ul>
+           <li>There will be TWO ways of creating classes and that may lead to complications later on</li>
+          </ul>
+		</section>
+	</section>
+		<!-- End Cons  -->
+
+
+		<!-- Pros -->
+		<section>
+			<section>
+			  <h2>The need for classes in JS</h2>
+			  <blockquote cite="http://michaux.ca/articles/transitioning-from-java-classes-to-javascript-prototypes">
+			    When they (newcomers) arrive to JavaScript their concepts of how an object-oriented language works no longer apply. They learn that their big OOP investment was not complete.
+			    -Peter Michaux
+		      </blockquote>
+			</section>
+			<section>
+			  <h2>Professional Learning Resources</h2>
+			  <p>Amazon.com results that refer to:</p>
+		      <ol>
+		        <li>"prototype inheritance javascript":  <code>N(14)</code></li>
+		        <li>"class inheritance":  <code>N(3001)</code></li>
+		      </ol>
+			</section>
+		</section>
+		<!-- End Pros  -->
+
+
+		<!--- Conclusion -->
+		<section>
+		  <h2>Conclusion</h2>
+		  <ul>
+		  	<li>It is happening!</li>
+		  	<li>It is just syntactic sugar for prototypical classes</li>
+		  </ul>
+		</section>
+		<!--- End Conclusion-->
+
+
+		<!--- Last Slide -->
+		<section>
+		  <h2>Thank You For Your Time</h2>
+		</section>
+		<!--- Last Slide -->
+
+		</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				//autoSlide: 15000,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -3,12 +3,13 @@ The New Sugar In Your JavaScript
 Group Members: Nicandro Flores, Megan Greening, and Brian McWilliams.
 
 ECMAScript is an internationally standardized specification for scripting languages.  Many client side languages such as JavaScript(JS) and ActionScript are derived from it.  TC39 is a working group tasked with the responsibility of writing the new ECEMAScript 6 (ES6) specification[1], with a late 2013 target release. In approximately six months Node.js will begin embracing the newly proposed specification, browsers will begin popping up messages asking users upgrade their browsers, and JavaScript (JS) programmers will stand divided with TC39's decision to include a new class syntax into the language. 
+
 The Prototypla Way
 ------------------
 
 Despite JS being an object oriented language it does not have syntax to create classes in the conventional way programmers are used to, such as in Java. ECMAScript does specify that program state and methods are carried by objects, and that structure and behavior are both inherited. Therefore, even though class syntax such as "class" and "extends" do not exist in JS, there must be a way to simulate the idea of classes in JS. 
 
-JS function objects are highly versatile. They are first class citizens, thus are treated like data just as classes are in other class based languages. For example, functions in JS can be used as templates to construct other objects. The templated objects are easily created using the 'new' operator. In addition, they come pre-equipped with hidden properties and methods. One of these properties is the 'prototype' property, with these three tools programmers can simulate prototyped-based classes. 
+JS function objects are highly versatile. They are first class citizens, so they no different than data just as classes are data in other class based languages. For example functions can be used as templates to construct other objects. Templated objects are easily created using the 'new' operator. In addition functions also come pre-equipped with hidden properties and methods. One of these properties is the 'prototype' property, with these three tools programmers can simulate prototyped-based classes. 
 
 ==== Insert example of a prototype based class here ====
 >> Use example mentioned in the link below
@@ -111,6 +112,49 @@ http://www.nczonline.net/blog/2012/10/16/does-javascript-need-classes/
 While it seems like the general consensus in the field is that adding classes to JS will be a good thing, there are those who do not see a need for classes. Many people argue that you do not need classes in JS because there are already ways to effectively create "classes" through the use of constructors to define custom reference types. Furthermore, they feel that common features of classes (subclasses, superclasses, inheritance, etc) tend to cause additional confusion. You can already create custom reference types and all this change will do is to add unecessary syntactic sugar. Since the addition of classes does not alter how JS works, why bother adding it?
 
 The addition of classes is merely a simplified way of using the features already avaialbe to JS. Many feel that you should just learn how to use the syntax already available to you. No major change is occuring - in essence, all that is happening is the the underworkings of the code are being hidden by the new class syntax. Prototypal inheritance is not that confusing once you start getting down to the details of it - and it even allows for inheritance.
+
+>> Megan: I would like to either include a code snippet here or refer to a piece of code that we used in a different part of the paper. I have popped my own snippet in for now. We can always pare it down later! Most of this code and information comes from: http://www.2ality.com/2011/11/javascript-classes.html
+
+In fact, there are those in the field who argue that ptrotypal inheritance is even simpler than inheritance in classes. One such individual is Dr. Axel Rauschmayer. He provides the following code as an example:
+
+    var PersonProto = {
+        describe: function () {
+            return "Person called "+this.name;
+        },
+    };
+    var jane = {
+        __proto__: PersonProto,
+        name: "Jane",
+    };
+    var tarzan = {
+        __proto__: PersonProto,
+        name: "Tarzan",
+    };
+    
+    console.log(jane.describe()); // Person called Jane
+
+He goes on to explain that "jane and tarzan share the same prototype PersonProto which provides method describe() to both of them. Note how similar PersonProto is to a class. " Essentially this protypal way of handling 
+
+JS uses constructors (also called constructor functions) to generate instances of objects or prototypes. Building from the same example as above, we have the following:
+
+    // Constructor: set up the instance
+    function Person(name) {
+        this.name = name;
+    }
+
+    // Prototype: shared by all instances
+    Person.prototype.describe = function () {
+        return "Person called "+this.name;
+    };
+
+    var jane = new Person("Jane");
+    console.log(jane instanceof Person); // true
+
+    console.log(jane.describe()); // Person called Jane
+
+The constructor Person sets up a new instance of a person using "new". Any instances set up using this function share the prototype Person.prototype and can use functions the protype includes. This is the same way that inheritance works in classes in other languages, we just do not call anything a "class" in JS.
+
+>> This gets into something that Dr. R. and others call exemplars. I don't think we should get into that - it seems beyond the scope of this paper. However, I could certainly include that kind of information if we end up needing it.
 
 Concluson
 --------- 
