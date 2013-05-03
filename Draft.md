@@ -1,7 +1,3 @@
-To-Do
-- Add direct quotations where possible.
-- Mention community when possible.
-
 The New Sugar In Your JavaScript
 =================================
 Group Members: Nicandro Flores, Megan Greening, and Brian McWilliams.
@@ -65,31 +61,6 @@ prof.describe()  // a method in Employee.prototype
 
 Though this seems quite elaborate, many of these steps can be easily condensed into functions. JS evangelists such as Dr. Axel Raushmayer and Douglas Crockford have written extensivly on these topics [6][7]. These ideas are common knowledge to seasoned JS programmers, but someone new to the language may find the prototypical inheritance pattern awkward and may be easily disuaded from further learning the JS language.
 
-
-
-
->> I can add a section here that talks about Proto.js and the extend(Child,Parent) function if we have to
-====== let make sure to say more about what the community thinks =====
-
-
-
-
-==== Insert example of a prototype based class here ====
->> Use example mentioned in the link below
->> here: http://www.2ality.com/2011/11/javascript-classes.html
->> If we need other examples use:
->> http://www.2ality.com/2012/01/js-inheritance-by-example.html
->> Point out the use of call(), may need to meniton apply() and bind() too
->> and how they are used to switch context. (not part of the topic anymore)
->> Point out the renaming of Employee.prototype.constructor to Employee which
->> examplained here:
->> http://www.2ality.com/2011/06/constructor-property.html
-
->>MG: If you would like I can go ahead and import the code examples we used in the presentation.
-
->> lead into next topic saying like:
->> "Does JS need a native syntax to shorten the above example?"
-
 The New Class Syntax: Maximally Minimal Classes
 --------------------
 The concept of adding a more traditional Class structure to ES has been around in one form or another since at least ES4.  During the work on ES6, there were at least four formal proposals competing in this space, (class operator, classes, minimal classes, and classes as sugar)[2].  What these discussions highlighted was that there was no consensus on how to implement a broad range of Class semantics[3][4].  As a result, they agreed to “an absolutely minimal class declaration syntax that all interested parties may be able to easily agree upon.”
@@ -101,7 +72,7 @@ Those interested parties were able to agree that something was better than nothi
    *	super is available from any of the methods or constructor function
 
 Formal Class declarations and expressions:[5]
-<pre>
+~~~~javascript
     ClassDeclaration:
         "class" BindingIdentifier ClassTail
     ClassExpression:
@@ -120,11 +91,11 @@ Formal Class declarations and expressions:[5]
         "*" PropName "(" FormalParamList ")" "{" FuncBody "}"
         "get" PropName "(" ")" "{" FuncBody "}"
         "set" PropName "(" PropSetParamList ")" "{" FuncBody "}"
-</pre>
+~~~~
 
 As an example, we can see the above function in the new EC6 Class format:[5]
 
-<pre>
+~~~~javascript
     // Supertype
     class Person {
         constructor(name) {
@@ -144,10 +115,10 @@ As an example, we can see the above function in the new EC6 Class format:[5]
             return super.describe() + " (" + this.title + ")";
         }
     }
-</pre>
+~~~~
 
 This is how you use these classes:[5]
-<pre>
+~~~~javascript
     > let jane = new Employee("Jane", "CTO");
     > jane instanceof Person
     true
@@ -155,16 +126,16 @@ This is how you use these classes:[5]
     true
     > jane.describe()
     Person called Jane (CTO)
-</pre>
+~~~~
 
 Arguments for
 --------------
 
->> make it easy for new JS programmers
->> similar to what other seasoned programmers are used to
->> Lost of discussion here:
->> https://mail.mozilla.org/pipermail/es-discuss/2012-May/thread.html#22825
-Progammers working in other languages are used to be able to work with classes in their code. By adding this functionality, JS would be brought closer into line with other languages. It seems like there is popular support in the JS community for adding classes. However, as with any new modification, there is some concern over how classes will be implemented.
+When new people learn to program, they are introduced to Object Oriented Programming(OOP) as a best practice. This normally occurs in Java or C++.  JavaScript syntax however does not conform to these languages' styles.  As one JavaScript blogger, Peter Michaux puts it, "When they arrive to JavaScript their concepts of how an object-oriented language works no longer apply they learn that their big OOP investment was not complete." [8] Adding class syntax to JavaScript eases the transition.
+
+Peter also claims that there are not many great resources for learning how to effectively use prototype based inheritance effectively.  A quick search of Amazon bears this out.  A search for "prototype inheritance JavaScript" yields 14 responses, while a search for "class inheritance" yields 3,001 resources.  
+
+Finally, as we can see from the code comparisons for the traditional prototype way and the new class methods, code becomes shorter and more clear.  In the rational code, we produce 28 lines, 717 characters to declare and then use prototypes.  Using the new class syntax, we achieve the same functionality with 17 lines, 238 characters, an incredible 66% savings.  
 
 
 Arguments against
@@ -237,6 +208,8 @@ Citations
 
 [5] "ECMAScript.next: classes" 2ality JavaScript and More Blog Dr. Axel Rauschmayer [Online] Available: <br> http://www.2ality.com/2012/07/esnext-classes.html
 
-[6] "JavaScript quirks" 2ality JavaScript and More Blog, Dr. Axel Raushmayer [Online] Available: http://www.2ality.com/2013/04/12quirks.html
+[6] "JavaScript quirks" 2ality JavaScript and More Blog, Dr. Axel Raushmayer [Online] Available: <br> http://www.2ality.com/2013/04/12quirks.html
 
 [7] "JavaScript The Good Parts" by Douglas Crockford, May 2, 2008, O'Rielly. Page 57 Section 3.5 Prototypes
+
+[8] "Transitioning from Java Classes to JavaScript Prototypes" [Online] Available: <br> http://michaux.ca/articles/transitioning-from-java-classes-to-javascript-prototypes
