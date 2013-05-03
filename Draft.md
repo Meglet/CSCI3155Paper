@@ -141,17 +141,12 @@ Finally, as we can see from the code comparisons for the traditional prototype w
 Arguments against
 -----------------
 
->> lost of arguments here:
-http://www.nczonline.net/blog/2012/10/16/does-javascript-need-classes/
-
-While it seems like the general consensus in the field is that adding classes to JS will be a good thing, there are those who do not see a need for classes. Many people argue that you do not need classes in JS because there are already ways to effectively create "classes" through the use of constructors to define custom reference types[6]. Furthermore, they feel that common features of classes (subclasses, superclasses, inheritance, etc) tend to cause additional confusion. You can already create custom reference types and all this change will do is to add unecessary syntactic sugar. Since the addition of classes does not alter how JS works, many in the community do not see a need to add classes at all.
+While it seems like many in the field feel that adding classes to JS will be a good thing, there are those who do not see a need for classes. Many people argue that you do not need classes in JS because there are already ways to effectively create "classes" through the use of constructors to define custom reference types[6]. Furthermore, they feel that common features of classes (subclasses, superclasses, inheritance, etc) tend to cause additional confusion. You can already create custom reference types and all this change will do is to add unecessary syntactic sugar. Since the addition of classes does not alter how JS works, many in the community do not see a need to add classes at all. As Herby Vojčík stated in a discussion about the addition of classes, "I just don't understand why you use class keyword here. [It] will work without any changes, as-is, with plain function keyword. After all, you just augment a constructor definition." [10] This opinion is a common one in the community.
 
 The addition of classes is merely a simplified way of using the features already avaialbe to JS. Many feel that you should just learn how to use the syntax already available to you. No major change is occuring - in essence, all that is happening is the the underworkings of the code are being hidden by the new class syntax. Prototypal inheritance is not that confusing once you start getting down to the details of it - and it even allows for inheritance.
 
->> Megan: I would like to either include a code snippet here or refer to a piece of code that we used in a different part of the paper. I have popped my own snippet in for now. We can always pare it down later! Most of this code and information comes from: http://www.2ality.com/2011/11/javascript-classes.html
-
-In fact, there are those in the field who argue that ptrotypal inheritance is even simpler than inheritance in classes. One such individual is Dr. Axel Rauschmayer. He provides the following code as an example:
-
+In fact, there are those in the field who argue that ptrotypal inheritance is even simpler than inheritance in classes. One such individual is Dr. Axel Rauschmayer[6]. He provides the following code as an example:
+~~~~javascript
     var PersonProto = {
         describe: function () {
             return "Person called "+this.name;
@@ -167,11 +162,13 @@ In fact, there are those in the field who argue that ptrotypal inheritance is ev
     };
     
     console.log(jane.describe()); // Person called Jane
+~~~~
 
-He goes on to explain that "jane and tarzan share the same prototype PersonProto which provides method describe() to both of them. Note how similar PersonProto is to a class. " Essentially this protypal way of handling 
+He goes on to explain that "jane and tarzan share the same prototype PersonProto which provides method describe() to both of them. Note how similar PersonProto is to a class. " Essentially this protypal way of handling classes.
 
 JS uses constructors (also called constructor functions) to generate instances of objects or prototypes. Building from the same example as above, we have the following:
 
+~~~~javascript
     // Constructor: set up the instance
     function Person(name) {
         this.name = name;
@@ -186,10 +183,13 @@ JS uses constructors (also called constructor functions) to generate instances o
     console.log(jane instanceof Person); // true
 
     console.log(jane.describe()); // Person called Jane
+~~~~
 
 The constructor Person sets up a new instance of a person using "new". Any instances set up using this function share the prototype Person.prototype and can use functions the protype includes. This is the same way that inheritance works in classes in other languages, we just do not call anything a "class" in JS.
 
->> This gets into something that Dr. R. and others call exemplars. I don't think we should get into that - it seems beyond the scope of this paper. However, I could certainly include that kind of information if we end up needing it.
+>> I don't know if we need to spend much time talking about proto.js. I think we have a lot of material already.
+
+Proto.js has been created in order to simplify the way that prototypes can be used as classes[9]. Proto.js describes a way to treat the prototype as the class, rather than the constructor. This demonstrates one possible way to use the current structure of JS to write classes.
 
 Concluson
 --------- 
@@ -213,3 +213,7 @@ Citations
 [7] "JavaScript The Good Parts" by Douglas Crockford, May 2, 2008, O'Rielly. Page 57 Section 3.5 Prototypes
 
 [8] "Transitioning from Java Classes to JavaScript Prototypes" [Online] Available: <br> http://michaux.ca/articles/transitioning-from-java-classes-to-javascript-prototypes
+
+[9] Proto.js on Github [Onlie] Availalbe: https://github.com/rauschma/proto-js
+
+[10] Discussion of ECMAScript, May 2012 [Online] https://mail.mozilla.org/pipermail/es-discuss/2012-May/022813.html
