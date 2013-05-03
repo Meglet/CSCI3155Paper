@@ -1,3 +1,7 @@
+To-Do
+- Add direct quotations where possible.
+- Mention community when possible.
+
 The New Sugar In Your JavaScript
 =================================
 Group Members: Nicandro Flores, Megan Greening, and Brian McWilliams.
@@ -9,7 +13,66 @@ The Prototypla Way
 
 Despite JS being an object oriented language it does not have syntax to create classes in the conventional way programmers are used to, such as in Java. ECMAScript does specify that program state and methods are carried by objects, and that structure and behavior are both inherited. Therefore, even though class syntax such as "class" and "extends" do not exist in JS, there must be a way to simulate the idea of classes in JS. 
 
-JS function objects are highly versatile. They are first class citizens, so they no different than data just as classes are data in other class based languages. For example functions can be used as templates to construct other objects. Templated objects are easily created using the 'new' operator. In addition functions also come pre-equipped with hidden properties and methods. One of these properties is the 'prototype' property, with these three tools programmers can simulate prototyped-based classes. 
+JS function objects are highly versatile. They are first class citizens, so they are no different than data just as classes are data in other class based languages. For example functions can be used as templates to construct other objects. Templated objects are easily created using the 'new' operator. Additionally functions also come pre-equipped with hidden properties and methods. One of these properties is the 'prototype' property, with these three tools programmers can simulate prototyped-based classes.
+
+Starting with two constructor functions, Person and Employee, their initial prototype property is simply an empty object, "{}". 
+
+~~~~javascript
+function Person(name) {
+  this.name = name;
+}
+function Employee(name,title,company) {
+    Person.call(this,name);
+    this.title = title;
+    this.company = company;
+}
+Person.prototype // => {}
+~~~~
+
+It is simple matter to either augment these prototypes or completely replace them. To augment the person prototype we can do:
+
+~~~~javascript
+Person.prototype.sayName = function() { return "My name is: " + this.name; }
+Person.prototype // => [sayName: [Function]]
+~~~~~
+
+Instances of the Person constructor function will have references to Person's augmented prototype allowing to acess the to sayName() method.
+
+~~~~javascript
+var me = new Person('Joe Shmoe');
+me.sayName()  // => Joe Shmoe
+~~~~
+
+In order to create the inheritance relationship between the Person and the Employee constructor functions the prototype of Employee is completely replaced with a new instance of the Person. For example:
+
+~~~~javascript
+Employee.prototype = new Person('John Doe','TBD','Unemployed');
+Employee.prototype.constructor = Employee;
+Employee.prototype.describe() = function() {
+  Person.prototype.sayName.call(this,this.name)
+  + ", I am a " + this.title + " at "
+  + this.company + "!"; 
+}
+~~~~~
+
+At this stage, instances of Employee will have access to properties defined in Employees.prototype as well as properties defiend in Person.prototype.
+
+~~~~javascript
+var prof = new Employee('Jim Baker','code slinging Ninga','Rackspace');
+prof.sayName()   // a method in Person.prototype
+prof.describe()  // a method in Employee.prototype
+~~~~
+
+Though this seems quite elaborate, many of these steps can be easily condensed into functions. JS evangelists such as Dr. Axel Raushmayer and Douglas Crockford have written extensivly on these topics [6][7]. These ideas are common knowledge to seasoned JS programmers, but someone new to the language may find the prototypical inheritance pattern awkward and may be easily disuaded from further learning the JS language.
+
+
+
+
+>> I can add a section here that talks about Proto.js and the extend(Child,Parent) function if we have to
+====== let make sure to say more about what the community thinks =====
+
+
+
 
 ==== Insert example of a prototype based class here ====
 >> Use example mentioned in the link below
@@ -17,10 +80,12 @@ JS function objects are highly versatile. They are first class citizens, so they
 >> If we need other examples use:
 >> http://www.2ality.com/2012/01/js-inheritance-by-example.html
 >> Point out the use of call(), may need to meniton apply() and bind() too
->> and how they are used to switch context.
+>> and how they are used to switch context. (not part of the topic anymore)
 >> Point out the renaming of Employee.prototype.constructor to Employee which
 >> examplained here:
 >> http://www.2ality.com/2011/06/constructor-property.html
+
+>>MG: If you would like I can go ahead and import the code examples we used in the presentation.
 
 >> lead into next topic saying like:
 >> "Does JS need a native syntax to shorten the above example?"
@@ -107,9 +172,8 @@ Arguments against
 
 >> lost of arguments here:
 http://www.nczonline.net/blog/2012/10/16/does-javascript-need-classes/
->> This will clearly needed to be edited for clarity, but I really wanted to get some ideas in writing. -MG
 
-While it seems like the general consensus in the field is that adding classes to JS will be a good thing, there are those who do not see a need for classes. Many people argue that you do not need classes in JS because there are already ways to effectively create "classes" through the use of constructors to define custom reference types. Furthermore, they feel that common features of classes (subclasses, superclasses, inheritance, etc) tend to cause additional confusion. You can already create custom reference types and all this change will do is to add unecessary syntactic sugar. Since the addition of classes does not alter how JS works, why bother adding it?
+While it seems like the general consensus in the field is that adding classes to JS will be a good thing, there are those who do not see a need for classes. Many people argue that you do not need classes in JS because there are already ways to effectively create "classes" through the use of constructors to define custom reference types[6]. Furthermore, they feel that common features of classes (subclasses, superclasses, inheritance, etc) tend to cause additional confusion. You can already create custom reference types and all this change will do is to add unecessary syntactic sugar. Since the addition of classes does not alter how JS works, many in the community do not see a need to add classes at all.
 
 The addition of classes is merely a simplified way of using the features already avaialbe to JS. Many feel that you should just learn how to use the syntax already available to you. No major change is occuring - in essence, all that is happening is the the underworkings of the code are being hidden by the new class syntax. Prototypal inheritance is not that confusing once you start getting down to the details of it - and it even allows for inheritance.
 
@@ -161,16 +225,6 @@ Concluson
 
 The new class syntax proposed by in the new ECMAScript.next hides the standard details of writing prototypical classes in JS. Is hiding the details a good thing? New programmers may not understand what is going on under the hood when things go wrong when using the new syntax. The new syntax will certainly lead to nicer symantics and new JS code produced with it will be more readable and clear. At what point do we decide we've had enough turtles, Feyman? Future generations can decide this. 
 
-
-Slides for talk
-================
-5 mins worth:
->> use code snippet above to explain prototypical classes
->> use code snippet above to explain new syntax
->> mention how the new syntax is just sugar for what we are used to doing
->> mention how the new syntax works
->> don't allow time for questions! haha
-
 Citations
 ---------
 [1] Draft Specification for ES.next (Ecma-262 Edition 6) [Online] Available: <br> http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts
@@ -181,4 +235,8 @@ Citations
 
 [4] "Using Object Literals as Classes" discussion thread (67 replies) [Online] Available: <br> https://mail.mozilla.org/pipermail/es-discuss/2012-March/021253.html
 
-[5] "ECMAScript.next: classes" 2ality JavaScript nad More Blog Dr. Axel Rauschmayer [Online] Available: <br> http://www.2ality.com/2012/07/esnext-classes.html
+[5] "ECMAScript.next: classes" 2ality JavaScript and More Blog Dr. Axel Rauschmayer [Online] Available: <br> http://www.2ality.com/2012/07/esnext-classes.html
+
+[6] "JavaScript quirks" 2ality JavaScript and More Blog, Dr. Axel Raushmayer [Online] Available: http://www.2ality.com/2013/04/12quirks.html
+
+[7] "JavaScript The Good Parts" by Douglas Crockford, May 2, 2008, O'Rielly. Page 57 Section 3.5 Prototypes
