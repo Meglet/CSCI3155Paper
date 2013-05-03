@@ -175,7 +175,7 @@ While it seems like many in the field feel that adding classes to JS will be a g
 The addition of classes is merely a simplified way of using the features already avaialbe to JS. Many feel that you should just learn how to use the syntax already available to you. No major change is occuring - in essence, all that is happening is the the underworkings of the code are being hidden by the new class syntax. Prototypal inheritance is not that confusing once you start getting down to the details of it - and it even allows for inheritance.
 
 In fact, there are those in the field who argue that ptrotypal inheritance is even simpler than inheritance in classes. One such individual is Dr. Axel Rauschmayer[6]. He provides the following code as an example:
-<pre>
+~~~~javascript
     var PersonProto = {
         describe: function () {
             return "Person called "+this.name;
@@ -191,13 +191,13 @@ In fact, there are those in the field who argue that ptrotypal inheritance is ev
     };
     
     console.log(jane.describe()); // Person called Jane
-</pre>
+~~~~
 
 He goes on to explain that "jane and tarzan share the same prototype PersonProto which provides method describe() to both of them. Note how similar PersonProto is to a class. " Essentially this protypal way of handling classes.
 
 JS uses constructors (also called constructor functions) to generate instances of objects or prototypes. Building from the same example as above, we have the following:
 
-<pre>
+~~~~javascript
     // Constructor: set up the instance
     function Person(name) {
         this.name = name;
@@ -212,7 +212,7 @@ JS uses constructors (also called constructor functions) to generate instances o
     console.log(jane instanceof Person); // true
 
     console.log(jane.describe()); // Person called Jane
-    </pre>
+~~~~
 
 The constructor Person sets up a new instance of a person using "new". Any instances set up using this function share the prototype Person.prototype and can use functions the protype includes. This is the same way that inheritance works in classes in other languages, we just do not call anything a "class" in JS.
 
