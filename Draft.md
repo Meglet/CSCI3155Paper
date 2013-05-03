@@ -1,3 +1,5 @@
+You can find evidence of our collaboration (for both the paper and the presentation) at https://github.com/Meglet/CSCI3155Paper
+
 The New Sugar In Your JavaScript
 =================================
 Group Members: Nicandro Flores, Megan Greening, and Brian McWilliams.
@@ -187,7 +189,7 @@ JS uses constructors (also called constructor functions) to generate instances o
 
 The constructor Person sets up a new instance of a person using "new". Any instances set up using this function share the prototype Person.prototype and can use functions the protype includes. This is the same way that inheritance works in classes in other languages, we just do not call anything a "class" in JS.
 
->> I don't know if we need to spend much time talking about proto.js. I think we have a lot of material already.
+>> I don't know if we need to spend much time talking about proto.js. I think we have a lot of material already. We could fold this in, briefly, to Nic's protypal section to keep the reference in.
 
 Proto.js has been created in order to simplify the way that prototypes can be used as classes[9]. Proto.js describes a way to treat the prototype as the class, rather than the constructor. This demonstrates one possible way to use the current structure of JS to write classes.
 
