@@ -1,5 +1,7 @@
 You can find evidence of our collaboration (for both the paper and the presentation) at https://github.com/Meglet/CSCI3155Paper
 
+>>MG: I moved the Pro section to after the Con section, as in the presentation. We can move it back if you like!
+
 The New Sugar In Your JavaScript
 =================================
 Group Members: Nicandro Flores, Megan Greening, and Brian McWilliams.
@@ -130,16 +132,6 @@ This is how you use these classes:[5]
     Person called Jane (CTO)
 ~~~~
 
-Arguments for
---------------
-
-When new people learn to program, they are introduced to Object Oriented Programming(OOP) as a best practice. This normally occurs in Java or C++.  JavaScript syntax however does not conform to these languages' styles.  As one JavaScript blogger, Peter Michaux puts it, "When they arrive to JavaScript their concepts of how an object-oriented language works no longer apply they learn that their big OOP investment was not complete." [8] Adding class syntax to JavaScript eases the transition.
-
-Peter also claims that there are not many great resources for learning how to effectively use prototype based inheritance effectively.  A quick search of Amazon bears this out.  A search for "prototype inheritance JavaScript" yields 14 responses, while a search for "class inheritance" yields 3,001 resources.  
-
-Finally, as we can see from the code comparisons for the traditional prototype way and the new class methods, code becomes shorter and more clear.  In the rational code, we produce 28 lines, 717 characters to declare and then use prototypes.  Using the new class syntax, we achieve the same functionality with 17 lines, 238 characters, an incredible 66% savings.  
-
-
 Arguments against
 -----------------
 
@@ -147,7 +139,7 @@ While it seems like many in the field feel that adding classes to JS will be a g
 
 The addition of classes is merely a simplified way of using the features already avaialbe to JS. Many feel that you should just learn how to use the syntax already available to you. No major change is occuring - in essence, all that is happening is the the underworkings of the code are being hidden by the new class syntax. Prototypal inheritance is not that confusing once you start getting down to the details of it - and it even allows for inheritance.
 
-In fact, there are those in the field who argue that ptrotypal inheritance is even simpler than inheritance in classes. One such individual is Dr. Axel Rauschmayer[6]. He provides the following code as an example:
+In fact, there are those in the community who argue that ptrotypal inheritance is even simpler than inheritance in classes. One such individual is Dr. Axel Rauschmayer[6]. He provides the following code as an example:
 ~~~~javascript
     var PersonProto = {
         describe: function () {
@@ -166,7 +158,7 @@ In fact, there are those in the field who argue that ptrotypal inheritance is ev
     console.log(jane.describe()); // Person called Jane
 ~~~~
 
-He goes on to explain that "jane and tarzan share the same prototype PersonProto which provides method describe() to both of them. Note how similar PersonProto is to a class. " Essentially this protypal way of handling classes.
+He goes on to explain that "jane and tarzan share the same prototype PersonProto which provides method describe() to both of them. Note how similar PersonProto is to a class."[6] Essentially this protypal way of handling classes.
 
 JS uses constructors (also called constructor functions) to generate instances of objects or prototypes. Building from the same example as above, we have the following:
 
@@ -192,6 +184,15 @@ The constructor Person sets up a new instance of a person using "new". Any insta
 >> I don't know if we need to spend much time talking about proto.js. I think we have a lot of material already. We could fold this in, briefly, to Nic's protypal section to keep the reference in.
 
 Proto.js has been created in order to simplify the way that prototypes can be used as classes[9]. Proto.js describes a way to treat the prototype as the class, rather than the constructor. This demonstrates one possible way to use the current structure of JS to write classes.
+
+Arguments for
+--------------
+
+When new people learn to program, they are introduced to Object Oriented Programming(OOP) as a best practice. This normally occurs in Java or C++.  JavaScript syntax however does not conform to these languages' styles.  As one JavaScript blogger, Peter Michaux puts it, "When they arrive to JavaScript their concepts of how an object-oriented language works no longer apply they learn that their big OOP investment was not complete." [8] Adding class syntax to JavaScript eases the transition.
+
+Peter also claims that there are not many great resources for learning how to effectively use prototype based inheritance effectively.  A quick search of Amazon bears this out.  A search for "prototype inheritance JavaScript" yields 14 responses, while a search for "class inheritance" yields 3,001 resources.  
+
+Finally, as we can see from the code comparisons for the traditional prototype way and the new class methods, code becomes shorter and more clear.  In the rational code, we produce 28 lines, 717 characters to declare and then use prototypes.  Using the new class syntax, we achieve the same functionality with 17 lines, 238 characters, an incredible 66% savings.
 
 Concluson
 --------- 
