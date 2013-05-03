@@ -1,20 +1,21 @@
 
-New Class Syntax in JavaScript
-====================================
+## New Class Syntax in JavaScript
 
 By Nicandro Flores, Megan Greening, and Brian McWilliams
 Our paper and presentation slides are on github
 https://github.com/Meglet/CSCI3155Paper
 
-Outline
--------
+---
+
+## Outline
+
  + Background on our topic
  + Old vs. New Syntax
  + Pros and Cons
 
+---
 
-How did we get here?
-====================
+## How did we get here?
 
 The JavaScript Specification
 
@@ -26,14 +27,15 @@ The JavaScript Specification
 
  + The new spec will be out in late 2013
 
+---
 
-Prototype chain diagram
-------------------------
-![Image](prototypechain.jpg?raw=true)
+## Prototype chain diagram
 
+![](drawing.jpg)
 
-Constructor Functions
----------------------
+---
+
+## Constructor Functions
 
 ~~~~javascript
     > function Person(name) {
@@ -53,9 +55,9 @@ Constructor Functions
       }
 ~~~~
 
+---
 
-Prototype Inheritance
-----------------------
+## Prototype Inheritance
 
 ~~~~javascript
     > function Employee(name,title,company) {
@@ -73,8 +75,9 @@ Prototype Inheritance
       }
 ~~~~
 
-Now let's make some instances of these objects/classes
-----------------------------------------------------
+---
+
+## Now let's make some instances of these objects/classes
 
 ~~~~javascript
     > var me = new Person('Nic');
@@ -88,19 +91,18 @@ Now let's make some instances of these objects/classes
       I am a code slinging Ninja at Rackspace!
 ~~~~
 
+---
 
-Maximally Minimal Classes
--------------------------
+## Maximally Minimal Classes
 
  + A Class keyword
  + A body that includes the constructor function and instance methods
  + Cand declare a class as a subclass of another class using extends
  + Super is available from any of the methods or the constructor
 
+---
 
-7
-Formal Class Grammar
---------------------
+### Formal Class Grammar
 
 <Note/speaking> When we began gathering resources for this topic, we were suprised to be able to apply what we just learned.  The task group was describing the new feature in Backus–Naur Form.   Here we see the top level Class definition.  It is a little harder to make out than what we did, but we can see that ClassDeclaration returns a Binding Identifier and a Class Tail, then a ClassTail.
 <End speaking><p>
@@ -126,8 +128,10 @@ MethodDefinition :
 July 26, 2012 TC39 Meeting Notes Allen Wirfs-Brock http://t.co/PwuF12Y0
 </align>
 
-Parsing of Judgement Forms
---------------------------
+---
+
+## Parsing of Judgement Forms
+
 <pre>
 Static Semantics: ConstructorMethod
 ClassBody : ClassElementList
@@ -145,10 +149,11 @@ ClassTail : ClassHeritageopt { ClassBody }
    with argument symbol.
 </pre>
 
+---
 
-From Prototype to Classes
--------------------------
-<pre>
+## From Prototype to Classes
+
+~~~~javascript
 // Supertype
     class Person {
         constructor(name) { this.name = name; }
@@ -162,11 +167,11 @@ From Prototype to Classes
         }
         describe() { return super.describe() + this.title; }
     }
-</pre>
+~~~~
 
+---
 
-How Classes Will Be Used
-------------------------
+## How Classes Will Be Used
 
 ~~~~javascript
 > let prof = new Employee("Jim Baker", "code slinging Ninja");
@@ -179,24 +184,25 @@ How Classes Will Be Used
   I am a code slinging Ninja!
 ~~~~
 
+---
 
 
-
-Main Arguments Against
-----------------------
+## Main Arguments Against
 
 The new syntax will add complexity
 It is just sugar
 Minimal classes are redundant
 
-Classes May Add Complexity
---------------------------
+---
+
+## Classes May Add Complexity
 
 Adding common features of classes (inheritance, subclasses, etc) 
 will obscure the inner workings of JS
 
-Prototype Classes Work
-----------------------
+---
+
+## Prototype Classes Work
 
 You can always write your own JS function to extend CF
 ~~~~javascript
@@ -211,28 +217,30 @@ function extend(Child, Parent) {
 or use Proto.js
 https://github.com/rauschma/proto-js
 
+---
 
+## What's the point of Minimal Classes
 
-What's the point of Minimal Classes
------------------------------------
 There will be TWO ways of creating classes and that may lead to errors later on
 
+---
 
-The need for classes in JS
---------------------------
+## The need for classes in JS
 
 When they (newcomers) arrive to JavaScript their concepts of how an object-oriented language works no longer apply. They learn that their big OOP investment was not complete. -Peter Michaux
 
-Professional Learning Resources
--------------------------------
+---
+
+## Professional Learning Resources
 Amazon.com results that refer to:
   + "prototype inheritance javascript":  <pre>N(14)</pre>
   + "class inheritance":  <pre>N(3001)</pre>
 
+---
 
-
-Conclusion
-----------
+## Conclusion
 
 + Its happening!
 + Its just syntactic sugar for prototypical classes
+
+---
