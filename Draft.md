@@ -214,6 +214,6 @@ Citations
 
 [8] "Transitioning from Java Classes to JavaScript Prototypes" [Online] Available: <br> http://michaux.ca/articles/transitioning-from-java-classes-to-javascript-prototypes
 
-[9] Proto.js on Github [Onlie] Availalbe: https://github.com/rauschma/proto-js
+[9] Proto.js on Github [Onlie] Availalbe: <br> https://github.com/rauschma/proto-js
 
-[10] Discussion of ECMAScript, May 2012 [Online] https://mail.mozilla.org/pipermail/es-discuss/2012-May/022813.html
+[10] Discussion of ECMAScript, May 2012 [Online] <br> https://mail.mozilla.org/pipermail/es-discuss/2012-May/022813.html
