@@ -75,7 +75,8 @@ Those interested parties were able to agree that something was better than nothi
    *	can declare the class as a subclass of a another class (probably with the extends keyword)
    *	super is available from any of the methods or constructor function
 
-Formal Class declarations and expressions:[5]
+Below we see the formal Class declaration and expression.  Just as we learned in lecture, the language is described in Backus–Naur Form.[5]
+
 ~~~~javascript
     ClassDeclaration:
         "class" BindingIdentifier ClassTail
@@ -131,6 +132,27 @@ This is how you use these classes:[5]
     > jane.describe()
     Person called Jane (CTO)
 ~~~~
+
+Parsing of Judgement Forms
+-----------------
+The draft ECMAScript specification contains the official way statements should function.  While their document did not use formal, cryptic symbols as our labs did, the community utilizes the same skills we gained.  We can see the precedent/consequence parsing.  These statements are the equivalent of our judgement forms. 
+
+<pre>
+Static Semantics: ConstructorMethod
+ClassBody : ClassElementList
+  1. Let list be PrototypeMethodDefinitions of ClassElementList.
+  2. For each MethodDefinition m in list, do
+    a. If PropName of m is ″constructor″, return m.
+  3. Return empty.
+
+Static Semantics: Contains
+ClassTail : ClassHeritageopt { ClassBody }
+1. If symbol is ClassBody, return true.
+2. If ClassHeritage is not present, return false.
+3. If symbol is ClassHeritage, return true.
+4. Return the result of Contains for ClassHeritage 
+   with argument symbol.
+</pre>
 
 Arguments against
 -----------------
@@ -220,3 +242,5 @@ Citations
 [9] Proto.js on Github [Onlie] Availalbe: <br> https://github.com/rauschma/proto-js
 
 [10] Discussion of ECMAScript, May 2012 [Online] <br> https://mail.mozilla.org/pipermail/es-discuss/2012-May/022813.html
+
+[11] Current working draft for ES.next, revision 14, no markup. [Online] Available: <br> http://wiki.ecmascript.org/lib/exe/fetch.php?id=harmony%3Aspecification_drafts&cache=cache&media=harmony:working_draft_ecma-262_edition_6_03-08-13-nomarkup.pdf
